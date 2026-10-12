@@ -5,7 +5,7 @@
 > build or run here. For help, contact [Elfsight support](https://elfsight.com/support/).
 
 A remote [Model Context Protocol](https://modelcontextprotocol.io) server over your
-[Elfsight AI Chatbot](https://elfsight.com/ai-chatbot-widget/) widget data. Point an MCP-capable
+[Elfsight AI Chatbot](https://elfchatbot.com/) widget data. Point an MCP-capable
 AI agent at it and it can read your conversations, leads, knowledge base and analytics —
 and add answers to your knowledge base — without you copy-pasting anything into a chat window.
 
