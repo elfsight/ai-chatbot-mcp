@@ -2,7 +2,7 @@
 
 > This repository holds the documentation and the registry manifest (`server.json`) of the
 > Elfsight AI Chatbot MCP server. The server itself is hosted by Elfsight; there is nothing to
-> build or run here. For help, contact [Elfsight support](https://elfsight.com/support/).
+> build or run here. For help, contact [Elfsight Help Center](https://help.elfsight.com/).
 
 A remote [Model Context Protocol](https://modelcontextprotocol.io) server over your
 [Elfsight AI Chatbot](https://elfchatbot.com/) widget data. Point an MCP-capable
@@ -116,5 +116,5 @@ for testing, expect to see that traffic in the results too.
 
 ## Support
 
-Questions or issues — contact [Elfsight support](https://elfsight.com/support/) or your
+Questions or issues — contact [Elfsight Help Center](https://help.elfsight.com/) or your
 account manager.
