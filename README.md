@@ -27,13 +27,14 @@ claude mcp add --transport http elfsight-ai-chatbot https://widget-data.service.
 
 Then run `/mcp` inside Claude Code and choose **Authenticate** for `elfsight-ai-chatbot`.
 
-### Other clients
+### Cursor
 
-Any client that supports remote MCP servers with OAuth (dynamic client registration and
-PKCE) should connect with the server URL alone. **We have tested Claude Code only**; the
-snippets below are the usual shape of each client's config, not something we have verified.
+This repository is also a [Cursor plugin](https://cursor.com/docs/plugins/building): the manifest
+is in [`.cursor-plugin/plugin.json`](./.cursor-plugin/plugin.json), the server connection in
+[`mcp.json`](./mcp.json), and a rule with usage notes for the agent in [`rules/`](./rules).
 
-Cursor (`.cursor/mcp.json`):
+To connect without the plugin, add the server to `.cursor/mcp.json` and authenticate it when
+Cursor prompts:
 
 ```json
 {
@@ -44,6 +45,13 @@ Cursor (`.cursor/mcp.json`):
   }
 }
 ```
+
+### Other clients
+
+Any client that supports remote MCP servers with OAuth (dynamic client registration and
+PKCE) should connect with the server URL alone. **We have tested Claude Code and Cursor
+(through the plugin) only**; the snippets below are the usual shape of each client's config,
+not something we have verified.
 
 VS Code (`.vscode/mcp.json`):
 

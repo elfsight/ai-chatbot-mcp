@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "elfsight-ai-chatbot": {
+      "type": "http",
+      "url": "https://widget-data.service.elfsight.com/mcp/ai_chat"
+    }
+  }
+}
