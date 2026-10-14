@@ -20,7 +20,10 @@ found in the workspace. Use whatever mechanism your host application exposes for
 MCP server (see `README.md` in this repository for the usual config shapes).
 
 Cline: add it to `cline_mcp_settings.json` and keep `"type": "streamableHttp"`; without it Cline
-uses the legacy SSE transport and the connection fails.
+uses the legacy SSE transport and the connection fails. Recent Cline versions keep the file in
+`~/.cline/data/settings/`, older ones in the editor's
+`User/globalStorage/saoudrizwan.claude-dev/settings/`. Do not create `.vscode/mcp.json` for
+Cline: that file is VS Code's built-in MCP config and Cline does not read it.
 
 ```json
 {

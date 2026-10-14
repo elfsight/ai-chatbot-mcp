@@ -46,12 +46,39 @@ Cursor prompts:
 }
 ```
 
+### Cline
+
+In Cline, open **MCP Servers → Remote Servers** and add:
+
+- Server Name: `elfsight-ai-chatbot`
+- Server URL: `https://widget-data.service.elfsight.com/mcp/ai_chat`
+- Transport: **Streamable HTTP**
+
+Then choose **Authenticate** for the server and sign in to Elfsight in the browser.
+
+The same in Cline's own settings file, `cline_mcp_settings.json`. Recent versions keep it in
+`~/.cline/data/settings/`, older ones in the editor's
+`User/globalStorage/saoudrizwan.claude-dev/settings/`. Keep `type`: without it Cline falls
+back to the legacy SSE transport. `.vscode/mcp.json` belongs to VS Code's built-in MCP
+support; Cline does not read it.
+
+```json
+{
+  "mcpServers": {
+    "elfsight-ai-chatbot": {
+      "type": "streamableHttp",
+      "url": "https://widget-data.service.elfsight.com/mcp/ai_chat"
+    }
+  }
+}
+```
+
 ### Other clients
 
 Any client that supports remote MCP servers with OAuth (dynamic client registration and
 PKCE) should connect with the server URL alone. **We have tested Claude Code, Cursor
-(through the plugin), VS Code and Cline only**; the VS Code and Cline snippets below are
-verified, the Windsurf one is the usual shape of its config.
+(through the plugin), Cline and VS Code only**; the VS Code snippet below is verified, the
+Windsurf one is the usual shape of its config.
 
 VS Code (`.vscode/mcp.json`):
 
@@ -73,20 +100,6 @@ Windsurf (`mcp_config.json`):
   "mcpServers": {
     "elfsight-ai-chatbot": {
       "serverUrl": "https://widget-data.service.elfsight.com/mcp/ai_chat"
-    }
-  }
-}
-```
-
-Cline (`cline_mcp_settings.json`, or **MCP Servers → Remote Servers** with transport
-**Streamable HTTP**). Keep `type`: without it Cline falls back to the legacy SSE transport.
-
-```json
-{
-  "mcpServers": {
-    "elfsight-ai-chatbot": {
-      "type": "streamableHttp",
-      "url": "https://widget-data.service.elfsight.com/mcp/ai_chat"
     }
   }
 }
