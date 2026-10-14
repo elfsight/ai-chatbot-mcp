@@ -15,8 +15,25 @@ step for them. There is no API key to ask for.
 - Auth: OAuth, discovered by the client from the server's `401` response. Do not add an
   `Authorization` header yourself and do not put credentials in the URL.
 
-Add it using whatever mechanism your host application exposes for a remote HTTP MCP server
-(see `README.md` in this repository for the usual config shapes). Then ask the user to finish
+Add it to the MCP settings of the client you are running in, not to another editor's config
+found in the workspace. Use whatever mechanism your host application exposes for a remote HTTP
+MCP server (see `README.md` in this repository for the usual config shapes).
+
+Cline: add it to `cline_mcp_settings.json` and keep `"type": "streamableHttp"`; without it Cline
+uses the legacy SSE transport and the connection fails.
+
+```json
+{
+  "mcpServers": {
+    "elfsight-ai-chatbot": {
+      "type": "streamableHttp",
+      "url": "https://widget-data.service.elfsight.com/mcp/ai_chat"
+    }
+  }
+}
+```
+
+Then ask the user to finish
 the browser sign-in when the client prompts for it — in Claude Code that is `/mcp` →
 **Authenticate**.
 

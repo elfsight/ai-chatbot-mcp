@@ -50,8 +50,8 @@ Cursor prompts:
 
 Any client that supports remote MCP servers with OAuth (dynamic client registration and
 PKCE) should connect with the server URL alone. **We have tested Claude Code, Cursor
-(through the plugin) and VS Code only**; the VS Code snippet below is verified, the others are
-the usual shape of each client's config.
+(through the plugin), VS Code and Cline only**; the VS Code and Cline snippets below are
+verified, the Windsurf one is the usual shape of its config.
 
 VS Code (`.vscode/mcp.json`):
 
