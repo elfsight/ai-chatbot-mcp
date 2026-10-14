@@ -78,6 +78,20 @@ Windsurf (`mcp_config.json`):
 }
 ```
 
+Cline (`cline_mcp_settings.json`, or **MCP Servers → Remote Servers** with transport
+**Streamable HTTP**). Keep `type`: without it Cline falls back to the legacy SSE transport.
+
+```json
+{
+  "mcpServers": {
+    "elfsight-ai-chatbot": {
+      "type": "streamableHttp",
+      "url": "https://widget-data.service.elfsight.com/mcp/ai_chat"
+    }
+  }
+}
+```
+
 ## What you can ask it
 
 - **`list_assistants`** — "Which AI Chatbot widgets do I have?"
