@@ -1,5 +1,7 @@
 # Elfsight AI Chatbot — MCP Server
 
+[![Listed on mcpservers.org](https://mcpservers.org/badge.svg)](https://mcpservers.org/servers/elfsight/ai-chatbot-mcp)
+
 > This repository holds the documentation and the registry manifest (`server.json`) of the
 > Elfsight AI Chatbot MCP server. The server itself is hosted by Elfsight; there is nothing to
 > build or run here. For help, contact [Elfsight Help Center](https://help.elfsight.com/).
