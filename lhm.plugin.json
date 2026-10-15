@@ -1,0 +1,543 @@
+{
+  "identifier": "elfsight-ai-chatbot-mcp",
+  "name": "Elfsight AI Chatbot",
+  "version": "1.0.0",
+  "description": "Let your AI agent read conversations, leads, knowledge base and analytics of your Elfsight AI Chatbot widgets, and add answers to the knowledge base.",
+  "author": "Elfsight",
+  "authorUrl": "https://elfsight.com",
+  "homepage": "https://github.com/elfsight/ai-chatbot-mcp",
+  "cloudEndpoint": "https://widget-data.service.elfsight.com/mcp/ai_chat",
+  "icon": "https://raw.githubusercontent.com/elfsight/ai-chatbot-mcp/main/icon.png",
+  "category": "productivity",
+  "tags": [
+    "chatbot",
+    "customer-support",
+    "leads",
+    "analytics",
+    "knowledge-base",
+    "elfsight"
+  ],
+  "tools": [
+    {
+      "name": "list_assistants",
+      "description": "List the AI Chatbot assistants (widgets) of the account with their ids, business names and creation dates plus dashboard_url, the link to open the assistant in the Elfsight dashboard, and leads_url and analytics_url, the links to its Leads and Analytics dashboard pages. Every other tool accepts a returned assistant_id. If the account has exactly one assistant, assistant_id can be omitted everywhere and this tool is optional.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {}
+      }
+    },
+    {
+      "name": "get_analytics",
+      "description": "Get chats started, messages received, AI replies sent, AI handled time and leads collected for a rolling period (7d, 30d or 90d from now), with change against the previous period of equal length. The result carries dashboard_url, the link to the Analytics page in the Elfsight dashboard. Omit assistant_id when the account has a single assistant; otherwise call list_assistants first.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "assistant_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "Assistant id from list_assistants. Omit when the account has a single assistant.",
+            "default": null
+          },
+          "period": {
+            "type": "string",
+            "description": "Rolling window ending now: 7d, 30d or 90d. Defaults to 30d.",
+            "default": "30d",
+            "enum": [
+              "7d",
+              "30d",
+              "90d"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "search_conversations",
+      "description": "Search conversations of an assistant by text, period, status, close reason, lead presence or topic; returns compact lines with ids usable in get_conversation. Omit assistant_id when the account has a single assistant. query matches message text and the classification topic and summary. period is a rolling window ending now (7d, 30d, 90d); omit it for the whole history. status is open, closed or await_action. close_reason narrows to closed conversations by why they closed. has_lead=true keeps only conversations with collected contacts, false only those without. topic matches a substring of the classified topic. A truncated result reports the total and pages via cursor using the returned next_cursor. Every line carries dashboard_url, the link to open that conversation in the Elfsight dashboard; page_url is the visited site page, not a dashboard link.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "assistant_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "Assistant id from list_assistants. Omit it when the account has a single assistant.",
+            "default": null
+          },
+          "query": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "free text matched against message texts and classification topic and summary",
+            "default": null
+          },
+          "period": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Rolling window ending now. Omit to search the whole history.",
+            "default": null,
+            "enum": [
+              "7d",
+              "30d",
+              "90d",
+              null
+            ]
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "conversation state",
+            "default": null,
+            "enum": [
+              "open",
+              "closed",
+              "await_action",
+              null
+            ]
+          },
+          "close_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Why the conversation was closed. Implies closed conversations.",
+            "default": null,
+            "enum": [
+              "by_user",
+              "inactivity",
+              "limit_reached",
+              null
+            ]
+          },
+          "has_lead": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "description": "true returns only conversations where contacts were collected, false only those without",
+            "default": null
+          },
+          "topic": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "substring of the classified topic",
+            "default": null
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "description": "number of conversations to return, 20 by default, 100 at most",
+            "default": null
+          },
+          "cursor": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "value of next_cursor from a previous call",
+            "default": null
+          }
+        }
+      }
+    },
+    {
+      "name": "get_conversation",
+      "description": "Read one conversation: messages with roles and timestamps, attachments as links (never content), visited pages, close reason and the collected lead if one was collected. Omit assistant_id when the account has a single assistant. format=summary (default) truncates each message to 200 characters, format=full returns them whole. max_messages controls how many of the most recent messages come back, 100 by default and 500 at most. dashboard_url is the link to open this conversation in the Elfsight dashboard.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "thread_id": {
+            "type": "string",
+            "description": "conversation id from search_conversations or list_leads"
+          },
+          "assistant_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "Assistant id from list_assistants. Omit it when the account has a single assistant.",
+            "default": null
+          },
+          "format": {
+            "type": "string",
+            "description": "summary keeps the first 200 characters of each message, full keeps them whole",
+            "default": "summary",
+            "enum": [
+              "summary",
+              "full"
+            ]
+          },
+          "max_messages": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "description": "number of most recent messages to include, 100 by default, 500 at most",
+            "default": null
+          },
+          "contacts": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Whether lead contacts come back in full or masked. Defaults to the account policy.",
+            "default": null,
+            "enum": [
+              "full",
+              "masked",
+              null
+            ]
+          }
+        },
+        "required": [
+          "thread_id"
+        ]
+      }
+    },
+    {
+      "name": "list_leads",
+      "description": "List leads (conversations where the assistant collected contact details) with name, email, phone, page, summary and the thread_id of the originating conversation for use with get_conversation. assistant_id may be omitted when the account has a single assistant. contacts controls whether name/email/phone come back full or masked (e.g. \"j***@example.com\", \"+7***4567\"); it defaults to the account policy when omitted. period is a rolling window ending now (7d, 30d, 90d) applied to the moment contacts were collected; omit it to list the whole history. When the result is truncated the response says so and reports the total number of matches — do not treat a truncated list as the full picture; page through with the cursor parameter using the returned next_cursor. Every lead carries dashboard_url, the link to open its conversation in the Elfsight dashboard; the top-level dashboard_url is the link to the Leads page of the assistant.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "assistant_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "Assistant id from list_assistants. Omit it when the account has a single assistant.",
+            "default": null
+          },
+          "period": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "rolling window ending now, applied to the moment contacts were collected",
+            "default": null,
+            "enum": [
+              "7d",
+              "30d",
+              "90d",
+              null
+            ]
+          },
+          "is_new": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "description": "true returns only leads submitted after the account last reviewed leads in the dashboard",
+            "default": null
+          },
+          "query": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "free text matched against message texts and classification topic and summary",
+            "default": null
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "description": "number of leads to return, 20 by default, 100 at most",
+            "default": null
+          },
+          "cursor": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "value of next_cursor from a previous call",
+            "default": null
+          },
+          "contacts": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Whether contacts come back in full or masked. Defaults to the account policy.",
+            "default": null,
+            "enum": [
+              "full",
+              "masked",
+              null
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "search_knowledge",
+      "description": "Search the knowledge base of an assistant (files, links, crawled pages, Q&A entries, text blocks) for fragments matching a query. assistant_id may be omitted when the account has a single assistant. mode=\"storage\" (default) matches names, urls and text literally and answers fast; mode=\"semantic\" matches by meaning but can take up to a minute — use it only when storage found nothing or the query is conceptual rather than literal. Returns up to limit fragments (20 by default, 100 at most); when the result is truncated the response says so and reports the total number of matches.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "description": "words to look for, as a visitor would phrase them"
+          },
+          "assistant_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "Assistant id from list_assistants. Omit it when the account has a single assistant.",
+            "default": null
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "description": "number of fragments to return, 20 by default, 100 at most",
+            "default": null
+          },
+          "mode": {
+            "type": "string",
+            "description": "storage matches names, urls and text literally and answers fast; semantic matches by meaning and may take up to a minute",
+            "default": "storage",
+            "enum": [
+              "storage",
+              "semantic"
+            ]
+          }
+        },
+        "required": [
+          "query"
+        ]
+      }
+    },
+    {
+      "name": "list_knowledge_gaps",
+      "description": "List questions the assistant could not answer, grouped by normalized question text. assistant_id may be omitted when the account has a single assistant. period is a rolling window ending now (7d, 30d, 90d); omit it for the whole history. status filters by gap state: \"unresolved\" (not yet answered), \"resolved\" (answered via answer_knowledge_gap) or \"ignored\"; omit it to see all states. Each returned item is one distinct question with frequency (how many times it was asked), gap_ids (the underlying rows — pass one to answer_knowledge_gap to close it), and up to 3 example_thread_ids usable with get_conversation to see the real wording. Frequency is computed by grouping over at most the 500 most recent gaps of the period; when that window is hit the response is marked truncated with an explanatory hint, and narrowing the period gives exact counts. Returns up to limit distinct questions (20 by default, 100 at most); a truncated result reports the total number of distinct questions. dashboard_url is the link to the knowledge gaps section of this assistant in the Elfsight dashboard.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "assistant_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "Assistant id from list_assistants. Omit it when the account has a single assistant.",
+            "default": null
+          },
+          "period": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Rolling window ending now. Omit to cover the whole history.",
+            "default": null,
+            "enum": [
+              "7d",
+              "30d",
+              "90d",
+              null
+            ]
+          },
+          "status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Gap state. Omit to see all states.",
+            "default": null,
+            "enum": [
+              "unresolved",
+              "resolved",
+              "ignored",
+              null
+            ]
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "description": "number of distinct questions to return, 20 by default, 100 at most",
+            "default": null
+          }
+        }
+      }
+    },
+    {
+      "name": "answer_knowledge_gap",
+      "description": "Adds a new question-and-answer entry to an assistant's knowledge base. The operation is additive: nothing existing is overwritten or deleted, and this is the only tool in this server that writes. question and answer are required; assistant_id may be omitted when the account has a single assistant. Optionally pass gap_id (one value from the gap_ids array returned by list_knowledge_gaps, not the aggregate's question) to mark that specific knowledge gap resolved in the same call. gap_ids can hold several rows for one aggregated question; gap_id closes only that one row, the rest stay open, so call this tool again per id to close the others. A gap_id that is already resolved or ignored is rejected and writes nothing. It does NOT update or delete an existing knowledge base entry, and does NOT answer the visitor directly - the new entry is indexed asynchronously and becomes searchable by the assistant within a few minutes, not immediately.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "question": {
+            "type": "string",
+            "description": "the visitor question, as they would ask it"
+          },
+          "answer": {
+            "type": "string",
+            "description": "the reply the assistant should give"
+          },
+          "assistant_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "Assistant id from list_assistants. Omit it when the account has a single assistant.",
+            "default": null
+          },
+          "gap_id": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "description": "one of gap_ids from list_knowledge_gaps to close together with adding the answer",
+            "default": null
+          }
+        },
+        "required": [
+          "question",
+          "answer"
+        ]
+      }
+    }
+  ],
+  "prompts": [
+    {
+      "name": "weekly_report",
+      "description": "Build a weekly report of the AI Chatbot: metrics with week-over-week change, top conversation topics and new leads."
+    },
+    {
+      "name": "knowledge_gaps_review",
+      "description": "Find what the assistant cannot answer, group the questions, draft answers and close the gaps after confirmation."
+    },
+    {
+      "name": "lead_followup",
+      "description": "Go through new leads with the context of their conversations and propose how to follow up on each."
+    }
+  ]
+}
