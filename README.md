@@ -1,6 +1,7 @@
 # Elfsight AI Chatbot — MCP Server
 
 [![Listed on mcpservers.org](https://mcpservers.org/badge.svg)](https://mcpservers.org/servers/elfsight/ai-chatbot-mcp)
+[![GitHub MCP Registry](https://img.shields.io/badge/GitHub-MCP_Registry-181717?logo=github)](https://github.com/mcp/com.elfsight/ai-chatbot)
 
 > This repository holds the documentation and the registry manifest (`server.json`) of the
 > Elfsight AI Chatbot MCP server. The server itself is hosted by Elfsight; there is nothing to
@@ -82,7 +83,8 @@ PKCE) should connect with the server URL alone. **We have tested Claude Code, Cu
 (through the plugin), Cline and VS Code only**; the VS Code snippet below is verified, the
 Windsurf one is the usual shape of its config.
 
-VS Code (`.vscode/mcp.json`):
+VS Code: [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Server-0098FF?logo=visualstudiocode&logoColor=white)](https://vscode.dev/redirect/mcp/install?name=elfsight-ai-chatbot&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fwidget-data.service.elfsight.com%2Fmcp%2Fai_chat%22%7D)
+or add it to `.vscode/mcp.json`:
 
 ```json
 {
