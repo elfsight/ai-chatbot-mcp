@@ -3,7 +3,7 @@
   "name": "com.elfsight/ai-chatbot",
   "title": "Elfsight AI Chatbot",
   "description": "Read conversations, leads, knowledge base and analytics of your Elfsight AI Chatbot widgets.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "websiteUrl": "https://elfchatbot.com/",
   "repository": {
     "url": "https://github.com/elfsight/ai-chatbot-mcp",
@@ -12,7 +12,7 @@
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://widget-data.service.elfsight.com/mcp/ai_chat"
+      "url": "https://mcp.elfchatbot.com/mcp"
     }
   ]
 }

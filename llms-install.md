@@ -10,7 +10,7 @@ step for them. There is no API key to ask for.
 
 ## 2. Configure the connection
 
-- Server URL: `https://widget-data.service.elfsight.com/mcp/ai_chat`
+- Server URL: `https://mcp.elfchatbot.com/mcp`
 - Transport: Streamable HTTP
 - Auth: OAuth, discovered by the client from the server's `401` response. Do not add an
   `Authorization` header yourself and do not put credentials in the URL.
@@ -30,7 +30,7 @@ Cline: that file is VS Code's built-in MCP config and Cline does not read it.
   "mcpServers": {
     "elfsight-ai-chatbot": {
       "type": "streamableHttp",
-      "url": "https://widget-data.service.elfsight.com/mcp/ai_chat"
+      "url": "https://mcp.elfchatbot.com/mcp"
     }
   }
 }

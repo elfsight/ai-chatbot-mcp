@@ -1,12 +1,12 @@
 {
   "identifier": "elfsight-ai-chatbot-mcp",
   "name": "Elfsight AI Chatbot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Let your AI agent read conversations, leads, knowledge base and analytics of your Elfsight AI Chatbot widgets, and add answers to the knowledge base.",
   "author": "Elfsight",
   "authorUrl": "https://elfsight.com",
   "homepage": "https://github.com/elfsight/ai-chatbot-mcp",
-  "cloudEndpoint": "https://widget-data.service.elfsight.com/mcp/ai_chat",
+  "cloudEndpoint": "https://mcp.elfchatbot.com/mcp",
   "icon": "https://raw.githubusercontent.com/elfsight/ai-chatbot-mcp/main/icon.png",
   "category": "productivity",
   "tags": [

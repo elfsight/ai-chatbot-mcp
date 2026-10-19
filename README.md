@@ -15,7 +15,7 @@ and add answers to your knowledge base — without you copy-pasting anything int
 The server is account-scoped: once you sign in, the agent can reach every AI Chatbot widget on
 your Elfsight account, and nothing else (no other Elfsight products or data).
 
-Server URL: `https://widget-data.service.elfsight.com/mcp/ai_chat` (Streamable HTTP).
+Server URL: `https://mcp.elfchatbot.com/mcp` (Streamable HTTP).
 
 ## Connect
 
@@ -25,7 +25,7 @@ you sign in to Elfsight and approve access. There is no key to copy.
 ### Claude Code
 
 ```bash
-claude mcp add --transport http elfsight-ai-chatbot https://widget-data.service.elfsight.com/mcp/ai_chat
+claude mcp add --transport http elfsight-ai-chatbot https://mcp.elfchatbot.com/mcp
 ```
 
 Then run `/mcp` inside Claude Code and choose **Authenticate** for `elfsight-ai-chatbot`.
@@ -43,7 +43,7 @@ Cursor prompts:
 {
   "mcpServers": {
     "elfsight-ai-chatbot": {
-      "url": "https://widget-data.service.elfsight.com/mcp/ai_chat"
+      "url": "https://mcp.elfchatbot.com/mcp"
     }
   }
 }
@@ -54,7 +54,7 @@ Cursor prompts:
 In Cline, open **MCP Servers → Remote Servers** and add:
 
 - Server Name: `elfsight-ai-chatbot`
-- Server URL: `https://widget-data.service.elfsight.com/mcp/ai_chat`
+- Server URL: `https://mcp.elfchatbot.com/mcp`
 - Transport: **Streamable HTTP**
 
 Then choose **Authenticate** for the server and sign in to Elfsight in the browser.
@@ -70,7 +70,7 @@ support; Cline does not read it.
   "mcpServers": {
     "elfsight-ai-chatbot": {
       "type": "streamableHttp",
-      "url": "https://widget-data.service.elfsight.com/mcp/ai_chat"
+      "url": "https://mcp.elfchatbot.com/mcp"
     }
   }
 }
@@ -83,7 +83,7 @@ PKCE) should connect with the server URL alone. **We have tested Claude Code, Cu
 (through the plugin), Cline and VS Code only**; the VS Code snippet below is verified, the
 Windsurf one is the usual shape of its config.
 
-VS Code: [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Server-0098FF?logo=visualstudiocode&logoColor=white)](https://vscode.dev/redirect/mcp/install?name=elfsight-ai-chatbot&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fwidget-data.service.elfsight.com%2Fmcp%2Fai_chat%22%7D)
+VS Code: [![Install in VS Code](https://img.shields.io/badge/VS_Code-Install_Server-0098FF?logo=visualstudiocode&logoColor=white)](https://vscode.dev/redirect/mcp/install?name=elfsight-ai-chatbot&config=%7B%22type%22%3A%22http%22%2C%22url%22%3A%22https%3A%2F%2Fmcp.elfchatbot.com%2Fmcp%22%7D)
 or add it to `.vscode/mcp.json`:
 
 ```json
@@ -91,7 +91,7 @@ or add it to `.vscode/mcp.json`:
   "servers": {
     "elfsight-ai-chatbot": {
       "type": "http",
-      "url": "https://widget-data.service.elfsight.com/mcp/ai_chat"
+      "url": "https://mcp.elfchatbot.com/mcp"
     }
   }
 }
@@ -103,7 +103,7 @@ Windsurf (`mcp_config.json`):
 {
   "mcpServers": {
     "elfsight-ai-chatbot": {
-      "serverUrl": "https://widget-data.service.elfsight.com/mcp/ai_chat"
+      "serverUrl": "https://mcp.elfchatbot.com/mcp"
     }
   }
 }
