@@ -22,6 +22,17 @@ Server URL: `https://mcp.elfchatbot.com/mcp` (Streamable HTTP).
 Sign-in is OAuth. Add the server URL to your MCP client; the client opens a browser window,
 you sign in to Elfsight and approve access. There is no key to copy.
 
+### Claude (claude.ai, Desktop, mobile)
+
+Elfsight AI Chatbot is listed in the Claude connectors directory. In Claude, open
+**Settings → Connectors**, find **Elfsight AI Chatbot** and select **Connect**, then sign in to
+Elfsight and approve access. On Team and Enterprise plans an organization Owner may need to add
+the connector first. You can also add it as a custom connector with the server URL
+`https://mcp.elfchatbot.com/mcp`.
+
+Claude lists seven tools as read-only and `answer_knowledge_gap` as a write tool; on the connector's
+page you choose for each group whether Claude asks before calling it.
+
 ### Claude Code
 
 ```bash
@@ -79,7 +90,7 @@ support; Cline does not read it.
 ### Other clients
 
 Any client that supports remote MCP servers with OAuth (dynamic client registration and
-PKCE) should connect with the server URL alone. **We have tested Claude Code, Cursor
+PKCE) should connect with the server URL alone. **We have tested Claude, Claude Code, Cursor
 (through the plugin), Cline and VS Code only**; the VS Code snippet below is verified, the
 Windsurf one is the usual shape of its config.
 
