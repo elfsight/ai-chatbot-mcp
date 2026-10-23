@@ -139,15 +139,15 @@ workflows end to end: `weekly_report`, `knowledge_gaps_review`, `lead_followup`.
 Everything a tool returns can be sent to your AI provider (Anthropic, OpenAI, etc.) as part
 of your conversation with the agent. Keep that in mind:
 
-- **Lead contact fields are masked by default.** A lead's name, email and phone come back
-  masked (e.g. `j***@example.com`, `+7***4567`). Pass `contacts: "full"` on `get_conversation`
-  or `list_leads` to get the real values in that call.
-- **Masking covers those fields only.** Message text, page URLs and attachment links are
-  returned as they are. Visitors often type their email or phone into the chat, so
-  `get_conversation` can show contact details even when the lead fields are masked. Treat
-  everything a tool returns as possibly containing personal data.
-- **Attachments are links, not content.** File attachments come back as URLs, so a tool call
-  never puts a file's contents into the model's context.
+- **Lead contact fields are always masked.** A lead's name, email and phone come back masked
+  (e.g. `j***@example.com`, `+7***4567`) in `list_leads` and `get_conversation`. Full contacts
+  are available only in the Elfsight dashboard.
+- **Masking covers those fields only.** Message text is returned as visitors wrote it.
+  Visitors often type their email or phone into the chat, so `get_conversation` can show
+  contact details even though the lead fields are masked. Treat everything a tool returns as
+  possibly containing personal data.
+- **Attachments are type and file name only.** No file contents and no links to the files.
+- **Page URLs are returned without query strings or fragments.**
 
 Internal and test conversations are not filtered out of any tool — if you use your own widget
 for testing, expect to see that traffic in the results too.

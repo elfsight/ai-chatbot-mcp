@@ -1,7 +1,7 @@
 {
   "identifier": "elfsight-ai-chatbot-mcp",
   "name": "Elfsight AI Chatbot",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Let your AI agent read conversations, leads, knowledge base and analytics of your Elfsight AI Chatbot widgets, and add answers to the knowledge base.",
   "author": "Elfsight",
   "authorUrl": "https://elfsight.com",
@@ -194,7 +194,7 @@
     },
     {
       "name": "get_conversation",
-      "description": "Read one conversation: messages with roles and timestamps, attachments as links (never content), visited pages, close reason and the collected lead if one was collected. Omit assistant_id when the account has a single assistant. format=summary (default) truncates each message to 200 characters, format=full returns them whole. max_messages controls how many of the most recent messages come back, 100 by default and 500 at most. dashboard_url is the link to open this conversation in the Elfsight dashboard.",
+      "description": "Read one conversation between a website visitor and an AI Chatbot assistant (not the chat history of this AI client): messages with roles and timestamps, attachments as type and file name (never content or links), visited pages, close reason and the collected lead if one was collected. Omit assistant_id when the account has a single assistant. format=summary (default) truncates each message to 200 characters, format=full returns them whole. max_messages controls how many of the most recent messages come back, 100 by default and 500 at most. dashboard_url is the link to open this conversation in the Elfsight dashboard.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -234,23 +234,6 @@
             ],
             "description": "number of most recent messages to include, 100 by default, 500 at most",
             "default": null
-          },
-          "contacts": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Whether lead contacts come back in full or masked. Defaults to the account policy.",
-            "default": null,
-            "enum": [
-              "full",
-              "masked",
-              null
-            ]
           }
         },
         "required": [
@@ -260,7 +243,7 @@
     },
     {
       "name": "list_leads",
-      "description": "List leads (conversations where the assistant collected contact details) with name, email, phone, page, summary and the thread_id of the originating conversation for use with get_conversation. assistant_id may be omitted when the account has a single assistant. contacts controls whether name/email/phone come back full or masked (e.g. \"j***@example.com\", \"+7***4567\"); it defaults to the account policy when omitted. period is a rolling window ending now (7d, 30d, 90d) applied to the moment contacts were collected; omit it to list the whole history. When the result is truncated the response says so and reports the total number of matches — do not treat a truncated list as the full picture; page through with the cursor parameter using the returned next_cursor. Every lead carries dashboard_url, the link to open its conversation in the Elfsight dashboard; the top-level dashboard_url is the link to the Leads page of the assistant.",
+      "description": "List leads (website visitor conversations where the assistant collected contact details) with name, email, phone, page, summary and the thread_id of the originating conversation for use with get_conversation. assistant_id may be omitted when the account has a single assistant. name, email and phone are always masked (e.g. \"j***@example.com\", \"+7***4567\"); full contacts are available only in the Elfsight dashboard. period is a rolling window ending now (7d, 30d, 90d) applied to the moment contacts were collected; omit it to list the whole history. When the result is truncated the response says so and reports the total number of matches — do not treat a truncated list as the full picture; page through with the cursor parameter using the returned next_cursor. Every lead carries dashboard_url, the link to open its conversation in the Elfsight dashboard; the top-level dashboard_url is the link to the Leads page of the assistant.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -341,23 +324,6 @@
             ],
             "description": "value of next_cursor from a previous call",
             "default": null
-          },
-          "contacts": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Whether contacts come back in full or masked. Defaults to the account policy.",
-            "default": null,
-            "enum": [
-              "full",
-              "masked",
-              null
-            ]
           }
         }
       }

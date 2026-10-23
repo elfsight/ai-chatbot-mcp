@@ -6,7 +6,7 @@ alwaysApply: false
 elfsight-ai-chatbot MCP:
 
 - Before calling `answer_knowledge_gap`, show the user the question and answer you are about to add and get a clear yes.
-- Pass `contacts: "full"` only when the user asks for real contact details. Tool results can contain visitors' personal data even when contacts are masked: do not copy conversation text or contacts into files, commits or other tools.
+- Lead contacts are always masked; full contacts are only in the Elfsight dashboard. Tool results can still contain visitors' personal data in message text: do not copy conversation text or contacts into files, commits or other tools.
 - On a `401`, ask the user to authenticate the server again in Cursor; do not retry in a loop. On a `429`, wait at least the `Retry-After` seconds before retrying.
 - Internal and test conversations are not filtered out. If numbers look odd, ask whether the widget was used for testing.
 - In reports for people, use plain language ("conversations", "leads", "knowledge gaps"), not tool or field names, unless the user asks how the data was fetched.
