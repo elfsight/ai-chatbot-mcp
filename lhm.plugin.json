@@ -20,7 +20,7 @@
   "tools": [
     {
       "name": "list_assistants",
-      "description": "List the AI Chatbot assistants (widgets) of the account with their ids, business names and creation dates plus dashboard_url, the link to open the assistant in the Elfsight dashboard, and leads_url and analytics_url, the links to its Leads and Analytics dashboard pages. Every other tool accepts a returned assistant_id. If the account has exactly one assistant, assistant_id can be omitted everywhere and this tool is optional.",
+      "description": "List the AI Chatbot assistants (widgets) of the account with their ids, business names and creation dates plus dashboard_url, the link to open the assistant in the Elfsight dashboard, and leads_url and analytics_url, the links to its Leads and Analytics dashboard pages. Every other tool accepts a returned assistant_id. If the account has exactly one assistant, assistant_id can be omitted everywhere and this tool is optional. Call it only for requests about the account's chatbots, not for general questions.",
       "inputSchema": {
         "type": "object",
         "properties": {}
@@ -59,7 +59,7 @@
     },
     {
       "name": "search_conversations",
-      "description": "Search conversations of an assistant by text, period, status, close reason, lead presence or topic; returns compact lines with ids usable in get_conversation. Omit assistant_id when the account has a single assistant. query matches message text and the classification topic and summary. period is a rolling window ending now (7d, 30d, 90d); omit it for the whole history. status is open, closed or await_action. close_reason narrows to closed conversations by why they closed. has_lead=true keeps only conversations with collected contacts, false only those without. topic matches a substring of the classified topic. A truncated result reports the total and pages via cursor using the returned next_cursor. Every line carries dashboard_url, the link to open that conversation in the Elfsight dashboard; page_url is the visited site page, not a dashboard link.",
+      "description": "Search conversations that website visitors had with an AI Chatbot assistant (the chat widget on the customer's site, not the chat history of this AI client) by text, period, status, close reason, lead presence or topic; returns compact lines with ids usable in get_conversation. Omit assistant_id when the account has a single assistant. query matches message text and the classification topic and summary. period is a rolling window ending now (7d, 30d, 90d); omit it for the whole history. status is open, closed or await_action. close_reason narrows to closed conversations by why they closed. has_lead=true keeps only conversations with collected contacts, false only those without. topic matches a substring of the classified topic. A truncated result reports the total and pages via cursor using the returned next_cursor. Every line carries dashboard_url, the link to open that conversation in the Elfsight dashboard; page_url is the visited site page, not a dashboard link.",
       "inputSchema": {
         "type": "object",
         "properties": {
