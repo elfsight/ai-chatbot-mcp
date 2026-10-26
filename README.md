@@ -142,10 +142,10 @@ of your conversation with the agent. Keep that in mind:
 - **Lead contact fields are always masked.** A lead's name, email and phone come back masked
   (e.g. `j***@example.com`, `+7***4567`) in `list_leads` and `get_conversation`. Full contacts
   are available only in the Elfsight dashboard.
-- **Masking covers those fields only.** Message text is returned as visitors wrote it.
-  Visitors often type their email or phone into the chat, so `get_conversation` can show
-  contact details even though the lead fields are masked. Treat everything a tool returns as
-  possibly containing personal data.
+- **The same values are masked in text too.** Wherever the lead's own name, email or phone
+  appears in message text, topics or summaries, it comes back masked as well. Anything else
+  is returned as visitors wrote it: a phone typed in another format or someone else's contact
+  stays visible. Treat everything a tool returns as possibly containing personal data.
 - **Attachments are type and file name only.** No file contents and no links to the files.
 - **Page URLs are returned without query strings or fragments.**
 
